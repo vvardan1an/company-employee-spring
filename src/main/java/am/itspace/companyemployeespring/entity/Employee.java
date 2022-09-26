@@ -26,6 +26,7 @@ public class Employee {
     @Enumerated(value = EnumType.STRING)
     private Position position;
     private String profilePic;
+
     @ManyToOne
     private Company company;
 
