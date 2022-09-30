@@ -55,6 +55,28 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
+    @GetMapping("/employees/getImage")
+    public @ResponseBody byte[] getImage(@RequestParam("originalFilename") String originalFilename) throws IOException {
+        InputStream inputStream = new FileInputStream(folderPath + File.separator + originalFilename);
+
+        return IOUtils.toByteArray(inputStream);
+    }
+
+    @GetMapping("/employees/delete")
+    public String deleteEmployee(@RequestParam int id) {
+
+        Optional<Employee> employeeRepoById = employeeRepo.findById(id);
+        if (employeeRepoById.isPresent()) {
+            Company company = employeeRepoById.get().getCompany();
+            if (company != null) {
+                company.setSize(company.getSize() - 1);
+                companyRepo.save(company);
+                employeeRepo.deleteById(id);
+            }
+        }
+        return "redirect:/employees";
+    }
+
     private void empControl(CreateEmployeeDto dto, MultipartFile file, Company company) throws IOException {
         if (company != null) {
             Employee employee = Employee.builder()
@@ -77,29 +99,5 @@ public class EmployeeController {
             company.setSize(company.getSize() + 1);
             companyRepo.save(company);
         }
-    }
-
-    @GetMapping("/employees/getImage")
-    public @ResponseBody byte[] getImage(@RequestParam("originalFilename") String originalFilename) throws IOException {
-        InputStream inputStream = new FileInputStream(folderPath + File.separator + originalFilename);
-
-        return IOUtils.toByteArray(inputStream);
-    }
-
-    @GetMapping("/employees/delete")
-    public String deleteEmployee(@RequestParam int id) {
-
-        Optional<Employee> employeeRepoById = employeeRepo.findById(id);
-        if (employeeRepoById.isPresent()) {
-            Company company = employeeRepoById.get().getCompany();
-            if (company != null) {
-                company.setSize(company.getSize() - 1);
-                companyRepo.save(company);
-                employeeRepo.deleteById(id);
-            }
-        }
-
-
-        return "redirect:/employees";
     }
 }
