@@ -28,7 +28,7 @@
             <td th:text="${employee.company.name}"></td>
             <td>
                 <img th:if="${employee.profilePic != null}" th:src="@{/employees/getImage(originalFilename=${employee.profilePic})}" width="100px">
-                <img th:if="${employee.profilePic == null}" src="C:\Users\user\IdeaProjects\Spring\company-employee-spring\src\main\resources\static\dd.jpg" width="100px"}>
+                <img th:if="${employee.profilePic == null}" src="//Spring//company-employee-spring//images" width="100px"}>
             </td>
 
             <td>
