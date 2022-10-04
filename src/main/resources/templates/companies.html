@@ -13,12 +13,12 @@
         <th style="color: blue"><a href="/companies/add">Add</a></th>
     </tr>
 
-    <tr th:each="company:${companies}">
-        <td hidden th:text="${company.id}"></td>
+    <tr th:each="company: ${companies}">
+        <td th:text="${company.id}"></td>
         <td th:text="${company.name}"></td>
         <td th:text="${company.size}"></td>
         <td th:text="${company.address}"></td>
-        <td><a href="/companies/delete" style="color: red">Delete</a></td>
+        <td><a th:href="@{/companies/delete(id=${company.id})}" th:value="id" style="color: red">Delete</a></td>
     </tr>
 </table>
 </body>

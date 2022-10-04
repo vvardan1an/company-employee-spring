@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public String addCompany(@ModelAttribute User user){
+    public String addUser(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
         return "redirect:/";

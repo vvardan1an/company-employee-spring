@@ -90,6 +90,7 @@ public class EmployeeController {
                     .build();
 
             if (!file.isEmpty() && file.getSize() > 0) {
+
                 String originalFilename = System.nanoTime() + '_' + file.getOriginalFilename();
                 File newFile = new File(folderPath + File.separator + originalFilename);
                 file.transferTo(newFile);
